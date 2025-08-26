@@ -55,22 +55,31 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               viewport={{ once: true }}
+              // disable hover effects on mobile
               whileHover={{ scale: 1.05, y: -8 }}
             >
               {/* Shimmer Background */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 animate-[shimmer_3s_linear_infinite] bg-[length:200%_200%]"></div>
 
               {/* Inner Card */}
-              <div className="relative rounded-2xl p-6 sm:p-8 text-center bg-white/10 backdrop-blur-xl border border-gray-700 shadow-lg">
+              <div
+                className={`
+                  relative rounded-2xl p-6 sm:p-8 text-center 
+                  bg-white/5 sm:bg-white/10 
+                  border border-gray-700 
+                  shadow-none sm:shadow-lg 
+                  backdrop-blur-0 sm:backdrop-blur-xl
+                `}
+              >
                 <motion.div
-                  className="text-white text-4xl sm:text-5xl mb-4 flex justify-center drop-shadow-lg"
+                  className="text-white text-3xl sm:text-5xl mb-4 flex justify-center drop-shadow-lg"
                   whileHover={{ rotate: 15 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   {s.icon}
                 </motion.div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white">{s.title}</h3>
-                <p className="text-black text-xs sm:text-sm font-medium">{s.desc}</p>
+                <h3 className="text-base sm:text-xl font-semibold mb-2 text-white">{s.title}</h3>
+                <p className="text-gray-200 text-xs sm:text-sm font-medium">{s.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -86,7 +95,7 @@ const Services = () => {
           >
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 animate-[shimmer_3s_linear_infinite] bg-[length:200%_200%]"></div>
             <div className="relative rounded-2xl p-6 sm:p-8 text-center bg-gradient-to-br from-yellow-500/90 to-yellow-600/90 shadow-lg">
-              <h3 className="text-xl sm:text-2xl font-bold mb-3 text-black">
+              <h3 className="text-lg sm:text-2xl font-bold mb-3 text-black">
                 <span className="text-white">✨</span> Your Custom Need
               </h3>
               <p className="text-black text-xs sm:text-sm font-medium">
