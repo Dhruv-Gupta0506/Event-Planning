@@ -14,9 +14,10 @@ const Header = () => {
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
-      const headerOffset = 80; // Adjust based on your header height
+      const headerOffset = 80;
       const elementPosition = section.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
@@ -35,7 +36,7 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center px-2 md:px-6">
         {/* Brand */}
         <h1
-          className="brand cursor-pointer text-2xl font-bold tracking-wider bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-300 bg-clip-text text-transparent transition-transform duration-300 hover:scale-105"
+          className="cursor-pointer text-2xl font-bold tracking-wider bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-300 bg-clip-text text-transparent transition-transform duration-300 hover:scale-105"
           onClick={() => scrollToSection("hero")}
         >
           CoreCrew Services
@@ -46,10 +47,12 @@ const Header = () => {
           {["hero", "about", "services", "pricing", "contact"].map((item) => (
             <button
               key={item}
-              onClick={() => scrollToSection(item === "hero" ? "hero" : item)}
-              className="nav-link relative font-semibold tracking-wider uppercase text-gray-300 transition-all duration-300 hover:text-yellow-400 hover:scale-105"
+              onClick={() => scrollToSection(item)}
+              className="relative font-semibold tracking-wider uppercase text-gray-300 transition-all duration-300 hover:text-yellow-400 hover:scale-105"
             >
-              {item === "hero" ? "Home" : item.charAt(0).toUpperCase() + item.slice(1)}
+              {item === "hero"
+                ? "Home"
+                : item.charAt(0).toUpperCase() + item.slice(1)}
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 hover:w-full"></span>
             </button>
           ))}
@@ -58,39 +61,41 @@ const Header = () => {
         {/* Mobile Hamburger */}
         <div className="md:hidden flex items-center">
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="text-gray-300 focus:outline-none mr-2"
+            onClick={() => setMenuOpen(true)}
+            className="text-gray-300 focus:outline-none pr-10" // 🔥 extra padding-right
           >
-            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            <FaBars size={30} />
           </button>
         </div>
       </div>
 
-      {/* Mobile Overlay + Menu */}
-      <div
-        className={`md:hidden fixed inset-0 z-40 transition-opacity duration-300 ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        {/* Dark overlay */}
-        <div
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-          onClick={() => setMenuOpen(false)}
-        ></div>
+      {/* Mobile Fullscreen Menu */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-[9999] bg-[#0f172a] w-full h-screen flex flex-col">
+          {/* Close button */}
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="absolute top-6 right-10 text-gray-300 hover:text-yellow-400 transition-colors" // 🔥 extra padding-right
+          >
+            <FaTimes size={34} />
+          </button>
 
-        {/* Mobile Menu */}
-        <div className="absolute top-0 left-0 w-full bg-[#0f172a]/95 flex flex-col items-center py-12 space-y-6 shadow-lg">
-          {["hero", "about", "services", "pricing", "contact"].map((item) => (
-            <button
-              key={item}
-              onClick={() => scrollToSection(item === "hero" ? "hero" : item)}
-              className="nav-link text-xl font-semibold tracking-wider uppercase text-gray-300 hover:text-yellow-400 hover:scale-105 transition-transform duration-300"
-            >
-              {item === "hero" ? "Home" : item.charAt(0).toUpperCase() + item.slice(1)}
-            </button>
-          ))}
+          {/* Menu items */}
+          <div className="flex flex-col items-center justify-center flex-1 space-y-10">
+            {["hero", "about", "services", "pricing", "contact"].map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item)}
+                className="text-2xl font-semibold tracking-wider uppercase text-gray-300 hover:text-yellow-400 hover:scale-105 transition-transform duration-300"
+              >
+                {item === "hero"
+                  ? "Home"
+                  : item.charAt(0).toUpperCase() + item.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };
